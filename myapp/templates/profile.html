@@ -1,0 +1,99 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+</head>
+
+<body>
+   
+
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">profile</a>
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <span class="breadcrumb-item active">User profile</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Edite Profile</span></h5>
+                {% if msg %}
+                <b style="color:blue">{{msg}}</b>
+                    {% endif %}
+                <div class="bg-light p-30 mb-5">
+                    <form name="signup" method="post" action="{% url 'profile' %}"enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>First Name</label>
+                            <input class="form-control" type="text"name="fname" placeholder="First Name"value="{{user.fname}}">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Last Name</label>
+                            <input class="form-control" type="text"name="lname" placeholder="Last Name"value="{{user.lname}}">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" name="email" placeholder="Email"value="{{user.email}}" readonly>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Mobile No</label>
+                            <input class="form-control" type="text"name="mobile" placeholder="Mobile"value="{{user.mobile}}">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address</label>
+                            <input class="form-control" type="text"name="address" placeholder="Address"value="{{user.address}}">
+                        </div>
+                        
+                        
+                        <div class="col-md-6 form-group">
+                            <label>City</label>
+                            <input class="form-control" type="text" name="city" placeholder="City"value="{{user.city}}">
+                        </div>
+                        
+                        <div class="col-md-6 form-group">
+                            <label>ZIP Code</label>
+                            <input class="form-control" type="text"name="zipcode" placeholder="ZIP Code"value="{{user.zipcode}}">
+                        </div>
+                        <div class="form-group">
+                            <img src="{{user.profile_pic.url}}" width="100px"
+                            height="100px">
+                        </div>
+                        <div>
+                            <input class="form-control" type="file" name="profile_pic">
+                        </div>
+
+                       
+                       
+                        <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Update Profile </button>
+                       
+                        
+                        
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</div>                
+
+</body>
+
+</html>
+{% endblock %}

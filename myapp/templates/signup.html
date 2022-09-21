@@ -1,0 +1,135 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+</head>
+
+<body>
+   
+
+
+    <!-- Breadcrumb Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-12">
+                <nav class="breadcrumb bg-light mb-30">
+                    <a class="breadcrumb-item text-dark" href="#">Sign Up</a>
+                    <a class="breadcrumb-item text-dark" href="#">Home</a>
+                    <span class="breadcrumb-item active">Sign Up</span>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">User Information</span></h5>
+                {% if msg %}
+                <b style="color:blue">{{msg}}</b>
+                    {% endif %}
+                <div class="bg-light p-30 mb-5">
+                   
+                    <form name="signup" method="post" action="{% url 'signup' %}"enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <select name="usertype">
+                                <option>---Select User Type------ </option>
+                                <option value="user">User</option>
+                                <option value="seller">Seller</option>
+                            </select>
+                        </div>
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label>First Name</label>
+                            <input class="form-control" type="text"name="fname" placeholder="First Name">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Last Name</label>
+                            <input class="form-control" type="text"name="lname" placeholder="Last Name">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>E-mail</label>
+                            <input class="form-control" type="text" name="email" placeholder="Email" id="email">
+                             <span id="email_error" style="color: red;"></span>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Mobile No</label>
+                            <input class="form-control" type="text"name="mobile" placeholder="Mobile">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label>Address</label>
+                            <input class="form-control" type="text"name="address" placeholder="Address">
+                        </div>
+                        
+                        
+                        <div class="col-md-6 form-group">
+                            <label>City</label>
+                            <input class="form-control" type="text" name="city" placeholder="City">
+                        </div>
+                        
+                        <div class="col-md-6 form-group">
+                            <label>ZIP Code</label>
+                            <input class="form-control" type="text"name="zipcode" placeholder="ZIP Code">
+                        </div>
+                        <div class="col-md-6 form-group">
+                
+                            <input class="form-control" type="password" name="password" placeholder="password">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <input class="form-control" type="file" name="profile_pic">
+                        </div>
+
+                       <div class="col-md-6 form-group">
+                
+                            <input class="form-control" type="password" name="cpassword" placeholder="confirmpassword">
+                        </div>
+                       
+                        <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">SIGN UP</button>
+                       
+                        
+                        
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+</div> 
+<script>
+          $("#email").change(function(){
+            var email=$(this).val();
+            
+
+            $.ajax({
+              url: '/ajax/validate_email/',
+              data: {
+                'email': email
+              },
+              dataType: 'json',
+              success: function (data) {
+                if (data.is_taken) {
+                  document.getElementById("email").style.border="5px solid red";
+                  document.getElementById("email_error").innerHTML="This Email Id Already Registered";
+                }else{
+                  document.getElementById("email").style.border="5px solid green";
+                  document.getElementById("email_error").innerHTML="";
+                }
+              }
+            });
+          });
+
+        </script>               
+
+</body>
+
+</html>
+{% endblock %}
